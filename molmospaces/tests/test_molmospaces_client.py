@@ -143,8 +143,9 @@ def test_benchmark_slots_make_one_job_each():
     benchmark = json.loads(BENCHMARK.read_text())
     jobs = jobs_mod.lines(benchmark, Path("/assets"))
     assert len(jobs) == 100
-    slot, bench, bdir, idx, horizon, cams = jobs[0].split()
-    assert slot == "001" and bdir.startswith("/assets/benchmarks/") and len(cams.split(",")) == 3
+    job, set_name, bench, slot, bdir, idx, horizon, cams = jobs[0].split()
+    assert (job, set_name, slot) == ("slot-001", "molmospaces-hundred", "1")
+    assert bdir.startswith("/assets/benchmarks/") and len(cams.split(",")) == 3
     counts = {}
     for s in benchmark["slots"]:
         counts[s["benchmark"]] = counts.get(s["benchmark"], 0) + 1

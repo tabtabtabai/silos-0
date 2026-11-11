@@ -137,13 +137,16 @@ export MLSPACES_ASSETS_DIR=/path/to/molmospaces-assets RUN_OUT=$PWD/runs/first
 # Optional, if the server is not on ws://127.0.0.1:8001:
 # export HARNESS_URL=ws://127.0.0.1:8001
 
-python scripts/jobs.py --assets "$MLSPACES_ASSETS_DIR" | xargs -P 8 -L 1 scripts/run_slot.sh
+mkdir -p "$RUN_OUT"
+python scripts/jobs.py --assets "$MLSPACES_ASSETS_DIR" | tee "$RUN_OUT/jobs.txt" | xargs -P 8 -L 1 scripts/run_slot.sh
 "$MOLMOSPACES_PYTHON" scripts/score.py --run-out "$RUN_OUT" --json "$RUN_OUT/results.json"
 ```
 
-Each slot writes `$RUN_OUT/slot-NNN/` with MolmoSpaces' own output: trajectories, videos and `eval.log`. A
-finished slot leaves a `DONE` marker, so running the same command again resumes and skips finished slots.
-`--slots 1-13` or `--slots 3,7,40-45` picks a subset. One episode takes a few minutes of wall time, most of it
+Each episode writes `$RUN_OUT/slot-NNN/` with MolmoSpaces' own output (trajectory, videos, logs), a `status.json`
+and, when it succeeds, a `DONE` marker. Running the same command again resumes: finished episodes are skipped and
+failed ones run again, with the failed attempt's log kept under `attempts/<n>/`. `--slots 1-13` or
+`--slots 3,7,40-45` picks a subset. Keep the job list as `$RUN_OUT/jobs.txt`, as above: the progress and score
+scripts read it to know what the run should contain. One episode takes a few minutes of wall time, most of it
 waiting on the LLM, and about 10 planner calls. 100 episodes took about 2.5 hours with 6–10 running in parallel.
 Every planner call is billed by your endpoint.
 
@@ -152,7 +155,9 @@ Every planner call is billed by your endpoint.
 (the judge said success at any step), which the leaderboard ranks and which is the number reported here, and
 **at-end** (success on the last step), printed in brackets. The client stops an episode at its first success, so
 the two rarely differ. `score.py` writes that script's per-category CSV for each benchmark to `$RUN_OUT/scores/`,
-and adds only the per-benchmark counts, the missing slots and the All Combined average.
+and adds only the per-benchmark counts, the missing episodes and the All Combined average. `--policy-name` sets the
+name in the CSVs (default `sol200-flagshipv3b`); the name is not part of the policy, so a finished run can be
+rescored under another name in seconds.
 
 It also records what produced the run, at the top of `$RUN_OUT`:
 
@@ -161,14 +166,15 @@ It also records what produced the run, at the top of `$RUN_OUT`:
 | `policy.json` | the policy server's startup record: policy name, model, reasoning effort, call budget, prompt hash, full config and its hash, source revision. One entry per distinct server configuration if the server changed mid-run, with a warning. |
 | `environment.json` | the MolmoSpaces commit and tag, the `molmo-spaces`, `mujoco`, `mujoco-warp`, `warp-lang` and `numpy` versions, the renderer and asset data versions the episodes logged, Python, platform and `MUJOCO_GL` |
 
-and splits the server's decision log into each slot's folder, so `$RUN_OUT/slot-NNN/` holds everything about one
+and splits the server's decision log into each episode's folder, so `$RUN_OUT/<job>/` holds everything about one
 episode:
 
 | File | From | Contents |
 |---|---|---|
+| `status.json` | `run_slot.sh` | state (`running`, `done` or `failed`), host, start and end time, duration, exit code, the judge's success (any step and last step), and for a failure the last error line |
 | `decisions.jsonl` | policy server | first, the startup record of the server that ran the episode; then per planner call: reasoning summary (`thought`), visible text, latency, token usage; per tool call: arguments and result; the robot-time budget as it runs down |
 | `eval/.../trajectories_*.h5` | MolmoSpaces | per step: joint state, actions, judge success |
-| `eval/.../episode_*_<camera>.mp4` | MolmoSpaces | one video per policy camera |
+| `eval/.../episode_*_<camera>.mp4` | MolmoSpaces | one video per camera the benchmark renders (two to five) |
 | `eval/.../running_log.log`, `experiment_config_*.pkl` | MolmoSpaces | the episode's log and full eval config |
 | `eval.log` | `run_slot.sh` | `eval_main.py`'s console output |
 
@@ -176,10 +182,66 @@ The reasoning is the summary the API returns, not the model's full hidden reason
 model was shown are not stored (the videos show the same cameras). The decision logs contain task text and model
 responses: review them before sharing.
 
+## Watching a run
+
+`scripts/progress.py` summarises a run while it goes, from the files above. It needs only the standard library and
+is cheap enough to run every minute:
+
+```bash
+python scripts/progress.py --run-out "$RUN_OUT"            # writes $RUN_OUT/progress.json and prints a summary
+python scripts/progress.py --run-out vm1/run --run-out vm2/run --json progress.json   # several machines at once
+```
+
+```text
+2026-11-11T21:33:00Z  done 3/10  running 6  failed 1  pending 0  success 3/3 (100.0%)
+speed 40.0/h  mean episode 3.7 min  ETA 0.2 h
+planner 56 calls, 0 errors, 0.6M in (0.3M cached), 18k out; last response 0.8 min ago
+benchmark               done  run fail      success
+close-v1              1/2       1    0     1/1 100%
+open-v1               1/2       0    1     1/1 100%
+pick-v1.5             1/1       0    0     1/1 100%
+pick-v2-classic       0/1       1    0          0/0
+...
+FAILED open-v1/ep-99999 (exit 1, attempt 1): ValueError: Episode index 99999 is out of range. Benchmark has 1000 episodes (indices 0-999)
+```
+
+When episodes stop making progress, the summary says so:
+
+```text
+WARNING: no planner response for 20.8 min while episodes are running
+STALLED pick-v2-classic/ep-0500 on <host>: running 26.0 min, quiet 20.7 min
+```
+
+An episode whose machine died stays `running` in its `status.json`, so it shows as stalled; rerunning the same
+command runs it again.
+
+`progress.json` holds the same, per benchmark: expected, done, running, failed, pending and success so far; the
+speed over the last hour and an ETA; planner calls, errors and tokens; every failure with its error and machine;
+episodes that are **stalled** (running, with nothing from the server for 15 minutes); and whether the **endpoint is
+quiet** (no planner response for 15 minutes while episodes run). Those two separate a hung simulator or LLM
+endpoint from slow episodes. A dashboard only needs to read `progress.json`, or the `status.json` files for
+per-episode detail; to watch several machines, copy those small files (not the videos) to one place and pass each
+folder with `--run-out`.
+
+Success in `progress.json` is a progress signal read from each episode's trajectory; `score.py` is the score.
+
 ## Leaderboard runs
 
 A leaderboard entry uses MolmoSpaces' full benchmarks (about 1,000 episodes each) and its own commands, listed
-in its `docs/ms-bench.md` and `docs/mb-bench.md`, with this client as the eval config. For one benchmark:
+in its `docs/ms-bench.md` and `docs/mb-bench.md`, with this client as the eval config. The same scripts run them,
+in parallel and resumable, with `jobs.py --full`; each episode keeps its own time limit from MolmoSpaces' episode
+list, and runs with that benchmark's cameras:
+
+```bash
+python scripts/jobs.py --assets "$MLSPACES_ASSETS_DIR" --full all | tee "$RUN_OUT/jobs.txt" \
+  | xargs -P 10 -L 1 scripts/run_slot.sh                 # or --full open-v1,close-v1; --episodes 0-499 for part
+"$MOLMOSPACES_PYTHON" scripts/score.py --run-out "$RUN_OUT"
+```
+
+Episodes land in `$RUN_OUT/<benchmark>/ep-NNNN/`, and `scores/<benchmark>.csv` is then the CSV for that benchmark's
+entry. To split a run across machines, give each one a different `--episodes` range or benchmark list.
+
+The equivalent with MolmoSpaces' own command, for one benchmark:
 
 ```bash
 cd "$MOLMOSPACES_SRC"
