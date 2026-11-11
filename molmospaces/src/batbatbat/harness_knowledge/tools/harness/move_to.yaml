@@ -1,0 +1,40 @@
+tool: move_to
+capability: move
+purpose: Moves the gripper mount in a straight line, keeping orientation.
+use_when: staging, carrying, lifting clear or correcting position
+avoid_when: you need to turn (move_pose)
+proves: where the mount ended up
+not_proof: contact or grasp; paths are not collision-checked
+how: The commanded point is the mount, not the fingertips.
+limits:
+- text: a single move may travel at most {v} m
+  v: 0.35
+  modes:
+  - v2
+  - llm-only
+  - v1
+  source:
+    default: batbatbat.harness.kinematics:Franka.path
+    param: max_move
+- text: a single move may travel at most {v} m
+  v: 0.8
+  modes:
+  - v3
+  source:
+    const: batbatbat.harness.policy:V3_DEFAULTS
+    key: move_max_m
+- text: duration_s ({v[0]}-{v[1]} robot s) is the time allowed to arrive; the arm stops early once there
+  v:
+  - 1
+  - 16
+  source:
+    schema: duration_s
+- text: the result says if it arrived (within {v} m) and the error left
+  v: 0.005
+  source:
+    const: batbatbat.harness.policy:MOVE_POSITION_TOLERANCE_M
+errors:
+  move exceeds: Split the move into two, or move toward the target first.
+  Target not reached: Stalled means something is in the way; go up or around. Out of time means allow longer duration_s.
+  IK unreachable: The pose is outside the arm's reach or joint limits; approach from closer to the robot or change
+    height.

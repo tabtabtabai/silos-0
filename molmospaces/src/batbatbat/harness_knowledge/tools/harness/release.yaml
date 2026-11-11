@@ -1,0 +1,10 @@
+tool: release
+capability: gripper
+purpose: Opens the gripper without moving the arm.
+use_when: the held object is over, and just above, its destination
+avoid_when: it is still high or not over the destination, or the hand may be empty (closure rose since the grasp, or the item is not between the fingers in the latest image)
+proves: that the gripper opened
+not_proof: where the object landed; look afterwards
+how: ''
+limits: []
+errors: {}

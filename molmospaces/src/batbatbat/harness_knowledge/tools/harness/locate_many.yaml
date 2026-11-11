@@ -1,0 +1,19 @@
+tool: locate_many
+capability: perceive
+purpose: Locates several visible features in one call, returning a separate result or error for each.
+use_when: measuring several targets or destination features together
+avoid_when: only one feature is needed or a point is hidden in either view
+proves: the measured visible surface points, each with its own geometric errors
+not_proof: object centres, grasp poses, or that every point succeeded
+how: Send points as labelled object, left_xy and right_xy entries. Match the same physical feature in both
+  images for each entry, using [x, y] from the top left, 0-1000. Reuse successful results and retry only errors.
+limits:
+- text: at most {v} points per call
+  v: 12
+  source:
+    schema: points.maxItems
+errors: {}
+variants:
+  locator:
+    how: Send points as object descriptions, one precise small physical feature and side per entry. A separate
+      vision model picks the image points; do not send image coordinates. Inspect each result separately.

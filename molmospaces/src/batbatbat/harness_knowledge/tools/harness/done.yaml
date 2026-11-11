@@ -1,0 +1,10 @@
+tool: done
+capability: finish
+purpose: Ends your part and holds still; the environment judges success separately.
+use_when: a fresh view confirms every part of the instruction
+avoid_when: any part is unverified and time remains
+proves: nothing
+not_proof: success
+how: ''
+limits: []
+errors: {}

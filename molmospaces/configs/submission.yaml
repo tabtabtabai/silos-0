@@ -1,0 +1,23 @@
+# Frozen sol200-flagshipv3b policy. Endpoint and key are supplied at runtime.
+mode: llm-only
+open_loop_horizon: 8
+move_speed_multiplier: 4.0
+multi_locate: true
+move_path: true
+pace_note: true
+no_done: true
+placement_note: true
+carry_note: true
+motion_urgency: true
+grasp_aids:
+  fingertips: true
+  closeup: true
+knowledge:
+  features: [no_tip_out]
+planner:
+  provider: openai-responses
+  model: gpt-6.1-sol
+  effort: high
+  max_calls: 200
+  max_output_tokens: 4000
+  include_thoughts: true

@@ -1,0 +1,1572 @@
+{
+ "name": "molmospaces-hundred",
+ "version": "1",
+ "description": "A 100-episode proxy for the MolmoSpaces leaderboard 'All Combined' score (DROID Franka + Robotiq 2F-85, MuJoCo). 12-13 episodes from each of the eight CPU-runnable benchmarks; Pick-v2-filament is scored by the Pick-v2-classic slots. Classic renderer everywhere. Oracle success (success at any step), as the leaderboard ranks.",
+ "molmospaces": {
+  "repository": "https://github.com/allenai/molmospaces",
+  "tag": "v0.2.9",
+  "commit": "7351388",
+  "physics": "mujoco~=3.5.0",
+  "renderer": "classic",
+  "policy_dt_ms": 66.0,
+  "end_on_success": true,
+  "task_horizon": "per-episode task_horizon_sec from the benchmark JSON",
+  "benchmark_data": {
+   "molmospaces-bench-v1": "20260408",
+   "molmospaces-bench-v2": "20260415"
+  }
+ },
+ "scoring": {
+  "success": "MolmoSpaces per-step judge_success; oracle = success at any step",
+  "aggregate": "mean of the nine All Combined benchmark rates; pick-v2-filament := pick-v2-classic"
+ },
+ "calibration": {
+  "note": "public leaderboard All Combined [full, this subset's expected score from category rates], oracle %",
+  "held_out_policies": [
+   "cosmic",
+   "cosmos3-nano",
+   "pi05",
+   "psi_r2"
+  ],
+  "policies": {
+   "cosmic": [
+    54.1,
+    53.0
+   ],
+   "zoeinside": [
+    49.5,
+    50.2
+   ],
+   "phoenix": [
+    48.0,
+    48.4
+   ],
+   "cosmos3-nano": [
+    39.0,
+    36.4
+   ],
+   "walloss": [
+    38.5,
+    39.4
+   ],
+   "prts": [
+    27.8,
+    27.7
+   ],
+   "molmoact": [
+    25.9,
+    26.5
+   ],
+   "psi_r2": [
+    22.8,
+    20.4
+   ],
+   "pi05": [
+    17.8,
+    18.9
+   ]
+  }
+ },
+ "slots": [
+  {
+   "slot": 1,
+   "benchmark": "open-v1",
+   "leaderboard_task": "ms_open",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaOpenDataGenConfig/FrankaOpenDataGenConfig_20260123_json_benchmark",
+   "episode_index": 33,
+   "instruction": "open the cabinet.",
+   "episode_seconds": 30,
+   "category": "Cabinet",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 2,
+   "benchmark": "open-v1",
+   "leaderboard_task": "ms_open",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaOpenDataGenConfig/FrankaOpenDataGenConfig_20260123_json_benchmark",
+   "episode_index": 58,
+   "instruction": "open the drawer.",
+   "episode_seconds": 30,
+   "category": "Drawer",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 3,
+   "benchmark": "open-v1",
+   "leaderboard_task": "ms_open",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaOpenDataGenConfig/FrankaOpenDataGenConfig_20260123_json_benchmark",
+   "episode_index": 151,
+   "instruction": "open the drawer.",
+   "episode_seconds": 30,
+   "category": "Drawer",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 4,
+   "benchmark": "open-v1",
+   "leaderboard_task": "ms_open",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaOpenDataGenConfig/FrankaOpenDataGenConfig_20260123_json_benchmark",
+   "episode_index": 318,
+   "instruction": "open the dresser.",
+   "episode_seconds": 30,
+   "category": "Chestofdrawers",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 5,
+   "benchmark": "open-v1",
+   "leaderboard_task": "ms_open",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaOpenDataGenConfig/FrankaOpenDataGenConfig_20260123_json_benchmark",
+   "episode_index": 346,
+   "instruction": "open the dresser.",
+   "episode_seconds": 30,
+   "category": "Chestofdrawers",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 6,
+   "benchmark": "open-v1",
+   "leaderboard_task": "ms_open",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaOpenDataGenConfig/FrankaOpenDataGenConfig_20260123_json_benchmark",
+   "episode_index": 356,
+   "instruction": "open the dresser.",
+   "episode_seconds": 30,
+   "category": "Chestofdrawers",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 7,
+   "benchmark": "open-v1",
+   "leaderboard_task": "ms_open",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaOpenDataGenConfig/FrankaOpenDataGenConfig_20260123_json_benchmark",
+   "episode_index": 413,
+   "instruction": "open the table.",
+   "episode_seconds": 30,
+   "category": "Stand",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 8,
+   "benchmark": "open-v1",
+   "leaderboard_task": "ms_open",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaOpenDataGenConfig/FrankaOpenDataGenConfig_20260123_json_benchmark",
+   "episode_index": 498,
+   "instruction": "open the cabinet.",
+   "episode_seconds": 30,
+   "category": "Cabinet",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 9,
+   "benchmark": "open-v1",
+   "leaderboard_task": "ms_open",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaOpenDataGenConfig/FrankaOpenDataGenConfig_20260123_json_benchmark",
+   "episode_index": 499,
+   "instruction": "open the cabinet.",
+   "episode_seconds": 30,
+   "category": "Cabinet",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 10,
+   "benchmark": "open-v1",
+   "leaderboard_task": "ms_open",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaOpenDataGenConfig/FrankaOpenDataGenConfig_20260123_json_benchmark",
+   "episode_index": 595,
+   "instruction": "open the table.",
+   "episode_seconds": 30,
+   "category": "Stand",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 11,
+   "benchmark": "open-v1",
+   "leaderboard_task": "ms_open",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaOpenDataGenConfig/FrankaOpenDataGenConfig_20260123_json_benchmark",
+   "episode_index": 622,
+   "instruction": "open the desk.",
+   "episode_seconds": 30,
+   "category": "Desk",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 12,
+   "benchmark": "open-v1",
+   "leaderboard_task": "ms_open",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaOpenDataGenConfig/FrankaOpenDataGenConfig_20260123_json_benchmark",
+   "episode_index": 858,
+   "instruction": "open the table.",
+   "episode_seconds": 30,
+   "category": "Stand",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 13,
+   "benchmark": "open-v1",
+   "leaderboard_task": "ms_open",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaOpenDataGenConfig/FrankaOpenDataGenConfig_20260123_json_benchmark",
+   "episode_index": 970,
+   "instruction": "open the drawer.",
+   "episode_seconds": 30,
+   "category": "Drawer",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 14,
+   "benchmark": "close-v1",
+   "leaderboard_task": "ms_close",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaCloseDataGenConfig/FrankaCloseDataGenConfig_20260123_json_benchmark",
+   "episode_index": 20,
+   "instruction": "close the drawer.",
+   "episode_seconds": 30,
+   "category": "Drawer",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 15,
+   "benchmark": "close-v1",
+   "leaderboard_task": "ms_close",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaCloseDataGenConfig/FrankaCloseDataGenConfig_20260123_json_benchmark",
+   "episode_index": 83,
+   "instruction": "close the cabinet.",
+   "episode_seconds": 30,
+   "category": "Cabinet",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 16,
+   "benchmark": "close-v1",
+   "leaderboard_task": "ms_close",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaCloseDataGenConfig/FrankaCloseDataGenConfig_20260123_json_benchmark",
+   "episode_index": 115,
+   "instruction": "close the drawer.",
+   "episode_seconds": 30,
+   "category": "Drawer",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 17,
+   "benchmark": "close-v1",
+   "leaderboard_task": "ms_close",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaCloseDataGenConfig/FrankaCloseDataGenConfig_20260123_json_benchmark",
+   "episode_index": 239,
+   "instruction": "close the dresser.",
+   "episode_seconds": 30,
+   "category": "Chestofdrawers",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 18,
+   "benchmark": "close-v1",
+   "leaderboard_task": "ms_close",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaCloseDataGenConfig/FrankaCloseDataGenConfig_20260123_json_benchmark",
+   "episode_index": 347,
+   "instruction": "close the table.",
+   "episode_seconds": 30,
+   "category": "Stand",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 19,
+   "benchmark": "close-v1",
+   "leaderboard_task": "ms_close",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaCloseDataGenConfig/FrankaCloseDataGenConfig_20260123_json_benchmark",
+   "episode_index": 390,
+   "instruction": "close the desk.",
+   "episode_seconds": 30,
+   "category": "Desk",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 20,
+   "benchmark": "close-v1",
+   "leaderboard_task": "ms_close",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaCloseDataGenConfig/FrankaCloseDataGenConfig_20260123_json_benchmark",
+   "episode_index": 480,
+   "instruction": "close the dresser.",
+   "episode_seconds": 30,
+   "category": "Chestofdrawers",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 21,
+   "benchmark": "close-v1",
+   "leaderboard_task": "ms_close",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaCloseDataGenConfig/FrankaCloseDataGenConfig_20260123_json_benchmark",
+   "episode_index": 559,
+   "instruction": "close the table.",
+   "episode_seconds": 30,
+   "category": "Stand",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 22,
+   "benchmark": "close-v1",
+   "leaderboard_task": "ms_close",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaCloseDataGenConfig/FrankaCloseDataGenConfig_20260123_json_benchmark",
+   "episode_index": 586,
+   "instruction": "close the table.",
+   "episode_seconds": 30,
+   "category": "Stand",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 23,
+   "benchmark": "close-v1",
+   "leaderboard_task": "ms_close",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaCloseDataGenConfig/FrankaCloseDataGenConfig_20260123_json_benchmark",
+   "episode_index": 652,
+   "instruction": "close the dresser.",
+   "episode_seconds": 30,
+   "category": "Chestofdrawers",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 24,
+   "benchmark": "close-v1",
+   "leaderboard_task": "ms_close",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaCloseDataGenConfig/FrankaCloseDataGenConfig_20260123_json_benchmark",
+   "episode_index": 706,
+   "instruction": "close the drawer.",
+   "episode_seconds": 30,
+   "category": "Drawer",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 25,
+   "benchmark": "close-v1",
+   "leaderboard_task": "ms_close",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaCloseDataGenConfig/FrankaCloseDataGenConfig_20260123_json_benchmark",
+   "episode_index": 767,
+   "instruction": "close the table.",
+   "episode_seconds": 30,
+   "category": "Stand",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 26,
+   "benchmark": "close-v1",
+   "leaderboard_task": "ms_close",
+   "benchmark_dir": "molmospaces-bench-v1/ithor/FrankaCloseDataGenConfig/FrankaCloseDataGenConfig_20260123_json_benchmark",
+   "episode_index": 852,
+   "instruction": "close the drawer.",
+   "episode_seconds": 30,
+   "category": "Drawer",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 27,
+   "benchmark": "pick-v1.5",
+   "leaderboard_task": "mb_pick_msproc",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
+   "episode_index": 16,
+   "instruction": "Pick up the cookware",
+   "episode_seconds": 20,
+   "category": "Pot",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 28,
+   "benchmark": "pick-v1.5",
+   "leaderboard_task": "mb_pick_msproc",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
+   "episode_index": 37,
+   "instruction": "Pick up the slim black remote control",
+   "episode_seconds": 20,
+   "category": "Remote Control",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 29,
+   "benchmark": "pick-v1.5",
+   "leaderboard_task": "mb_pick_msproc",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
+   "episode_index": 218,
+   "instruction": "Pick up the shiny metal ladle with black handle",
+   "episode_seconds": 20,
+   "category": "Ladle",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 30,
+   "benchmark": "pick-v1.5",
+   "leaderboard_task": "mb_pick_msproc",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
+   "episode_index": 275,
+   "instruction": "Pick up the glass shaker",
+   "episode_seconds": 20,
+   "category": "S/p Shaker",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 31,
+   "benchmark": "pick-v1.5",
+   "leaderboard_task": "mb_pick_msproc",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
+   "episode_index": 293,
+   "instruction": "Pick up the white mug",
+   "episode_seconds": 20,
+   "category": "Mug",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 32,
+   "benchmark": "pick-v1.5",
+   "leaderboard_task": "mb_pick_msproc",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
+   "episode_index": 369,
+   "instruction": "Pick up the silver kettle",
+   "episode_seconds": 20,
+   "category": "Kettle",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 33,
+   "benchmark": "pick-v1.5",
+   "leaderboard_task": "mb_pick_msproc",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
+   "episode_index": 428,
+   "instruction": "Pick up the light gray wooden bowl",
+   "episode_seconds": 20,
+   "category": "Bowl",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 34,
+   "benchmark": "pick-v1.5",
+   "leaderboard_task": "mb_pick_msproc",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
+   "episode_index": 524,
+   "instruction": "Pick up the polished stainless steel fork with curve",
+   "episode_seconds": 20,
+   "category": "Fork",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 35,
+   "benchmark": "pick-v1.5",
+   "leaderboard_task": "mb_pick_msproc",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
+   "episode_index": 766,
+   "instruction": "Pick up the green tissue",
+   "episode_seconds": 20,
+   "category": "Tissue Paper",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 36,
+   "benchmark": "pick-v1.5",
+   "leaderboard_task": "mb_pick_msproc",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
+   "episode_index": 778,
+   "instruction": "Pick up the orange conical spray bottle with nozzle",
+   "episode_seconds": 20,
+   "category": "Spray Bottle",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 37,
+   "benchmark": "pick-v1.5",
+   "leaderboard_task": "mb_pick_msproc",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
+   "episode_index": 918,
+   "instruction": "Pick up the dark-handled kitchen spatula",
+   "episode_seconds": 20,
+   "category": "Spatula",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 38,
+   "benchmark": "pick-v1.5",
+   "leaderboard_task": "mb_pick_msproc",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
+   "episode_index": 934,
+   "instruction": "Pick up the silver polished butter knife with handle",
+   "episode_seconds": 20,
+   "category": "Knife",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 39,
+   "benchmark": "pick-v1.5",
+   "leaderboard_task": "mb_pick_msproc",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
+   "episode_index": 992,
+   "instruction": "Pick up the cup",
+   "episode_seconds": 20,
+   "category": "Cup",
+   "policy_cameras": [
+    "exo_camera_1",
+    "wrist_camera",
+    "wrist_camera"
+   ]
+  },
+  {
+   "slot": 40,
+   "benchmark": "pick-v2-classic",
+   "leaderboard_task": "mb_pick_classic",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 30,
+   "instruction": "Pick up the electrical outlet cover",
+   "episode_seconds": 20,
+   "category": "Objaelectricaloutletcover",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 41,
+   "benchmark": "pick-v2-classic",
+   "leaderboard_task": "mb_pick_classic",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 95,
+   "instruction": "Pick up the rectangular metal component",
+   "episode_seconds": 20,
+   "category": "Objaelectroniccomponent",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 42,
+   "benchmark": "pick-v2-classic",
+   "leaderboard_task": "mb_pick_classic",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 155,
+   "instruction": "Pick up the locomotive",
+   "episode_seconds": 20,
+   "category": "Objatoytrain",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 43,
+   "benchmark": "pick-v2-classic",
+   "leaderboard_task": "mb_pick_classic",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 197,
+   "instruction": "Pick up the gray shackle",
+   "episode_seconds": 20,
+   "category": "Objashackle",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 44,
+   "benchmark": "pick-v2-classic",
+   "leaderboard_task": "mb_pick_classic",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 266,
+   "instruction": "Pick up the speckled gray flask with cork",
+   "episode_seconds": 20,
+   "category": "Objaflask",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 45,
+   "benchmark": "pick-v2-classic",
+   "leaderboard_task": "mb_pick_classic",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 300,
+   "instruction": "Pick up the dark gray matte bowl with ridges",
+   "episode_seconds": 20,
+   "category": "Bowl",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 46,
+   "benchmark": "pick-v2-classic",
+   "leaderboard_task": "mb_pick_classic",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 377,
+   "instruction": "Pick up the sugar bowl",
+   "episode_seconds": 20,
+   "category": "Objasugarbowl",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 47,
+   "benchmark": "pick-v2-classic",
+   "leaderboard_task": "mb_pick_classic",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 414,
+   "instruction": "Pick up the golden yellow apple with small stem",
+   "episode_seconds": 20,
+   "category": "Fruit",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 48,
+   "benchmark": "pick-v2-classic",
+   "leaderboard_task": "mb_pick_classic",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 484,
+   "instruction": "Pick up the yellow kitchen knife with blade",
+   "episode_seconds": 20,
+   "category": "Knife",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 49,
+   "benchmark": "pick-v2-classic",
+   "leaderboard_task": "mb_pick_classic",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 488,
+   "instruction": "Pick up the orange telephone",
+   "episode_seconds": 20,
+   "category": "Objatelephone",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 50,
+   "benchmark": "pick-v2-classic",
+   "leaderboard_task": "mb_pick_classic",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 493,
+   "instruction": "Pick up the cylindrical dark fabric nhl pencilcase",
+   "episode_seconds": 20,
+   "category": "Objapencilcase",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 51,
+   "benchmark": "pick-v2-classic",
+   "leaderboard_task": "mb_pick_classic",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 955,
+   "instruction": "Pick up the silver tiara",
+   "episode_seconds": 20,
+   "category": "Objatiara",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 52,
+   "benchmark": "pick-v2-classic",
+   "leaderboard_task": "mb_pick_classic",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 999,
+   "instruction": "Pick up the beige and white tray",
+   "episode_seconds": 20,
+   "category": "Objatray",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 53,
+   "benchmark": "pick-v2-rand-cam",
+   "leaderboard_task": "mb_pick_rand_cam",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 22,
+   "instruction": "Pick up the rusted weight",
+   "episode_seconds": 20,
+   "category": "Objaweight",
+   "policy_cameras": [
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 54,
+   "benchmark": "pick-v2-rand-cam",
+   "leaderboard_task": "mb_pick_rand_cam",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 33,
+   "instruction": "Pick up the glossy red black pawn",
+   "episode_seconds": 20,
+   "category": "Objachesspiece",
+   "policy_cameras": [
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 55,
+   "benchmark": "pick-v2-rand-cam",
+   "leaderboard_task": "mb_pick_rand_cam",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 116,
+   "instruction": "Pick up the script",
+   "episode_seconds": 20,
+   "category": "Objadecorativescript",
+   "policy_cameras": [
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 56,
+   "benchmark": "pick-v2-rand-cam",
+   "leaderboard_task": "mb_pick_rand_cam",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 307,
+   "instruction": "Pick up the golden chain necklace",
+   "episode_seconds": 20,
+   "category": "Objanecklace",
+   "policy_cameras": [
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 57,
+   "benchmark": "pick-v2-rand-cam",
+   "leaderboard_task": "mb_pick_rand_cam",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 479,
+   "instruction": "Pick up the cooking utensil",
+   "episode_seconds": 20,
+   "category": "Objasaucepan",
+   "policy_cameras": [
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 58,
+   "benchmark": "pick-v2-rand-cam",
+   "leaderboard_task": "mb_pick_rand_cam",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 549,
+   "instruction": "Pick up the red clock",
+   "episode_seconds": 20,
+   "category": "Objaalarmclock",
+   "policy_cameras": [
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 59,
+   "benchmark": "pick-v2-rand-cam",
+   "leaderboard_task": "mb_pick_rand_cam",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 552,
+   "instruction": "Pick up the smooth curved wooden crescent piece",
+   "episode_seconds": 20,
+   "category": "Objadecorativeelement",
+   "policy_cameras": [
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 60,
+   "benchmark": "pick-v2-rand-cam",
+   "leaderboard_task": "mb_pick_rand_cam",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 553,
+   "instruction": "Pick up the packaged chocolate cake with strawberries",
+   "episode_seconds": 20,
+   "category": "Objapackagedfood",
+   "policy_cameras": [
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 61,
+   "benchmark": "pick-v2-rand-cam",
+   "leaderboard_task": "mb_pick_rand_cam",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 598,
+   "instruction": "Pick up the slim pipette tool",
+   "episode_seconds": 20,
+   "category": "Objapipette",
+   "policy_cameras": [
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 62,
+   "benchmark": "pick-v2-rand-cam",
+   "leaderboard_task": "mb_pick_rand_cam",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 745,
+   "instruction": "Pick up the metal wrench",
+   "episode_seconds": 20,
+   "category": "Objaadjustablewrench",
+   "policy_cameras": [
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 63,
+   "benchmark": "pick-v2-rand-cam",
+   "leaderboard_task": "mb_pick_rand_cam",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 806,
+   "instruction": "Pick up the pie",
+   "episode_seconds": 20,
+   "category": "Objapieslice",
+   "policy_cameras": [
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 64,
+   "benchmark": "pick-v2-rand-cam",
+   "leaderboard_task": "mb_pick_rand_cam",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickHardBench/FrankaPickHardBench_20260206_json_benchmark",
+   "episode_index": 837,
+   "instruction": "Pick up the purple mystical book",
+   "episode_seconds": 20,
+   "category": "Objabook",
+   "policy_cameras": [
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 65,
+   "benchmark": "pnp-v2",
+   "leaderboard_task": "mb_pnp",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceHardBench/FrankaPickandPlaceHardBench_20260206_json_benchmark",
+   "episode_index": 92,
+   "instruction": "Pick up the carved wooden horse knight and place it in or on the dark shallow round bowl with contrast",
+   "episode_seconds": 40,
+   "category": "Objachesspiece",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 66,
+   "benchmark": "pnp-v2",
+   "leaderboard_task": "mb_pnp",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceHardBench/FrankaPickandPlaceHardBench_20260206_json_benchmark",
+   "episode_index": 120,
+   "instruction": "Pick up the colorful geometric molecular model and place it in or on the round ceramic bowl",
+   "episode_seconds": 40,
+   "category": "Objaeducationaltoy",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 67,
+   "benchmark": "pnp-v2",
+   "leaderboard_task": "mb_pnp",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceHardBench/FrankaPickandPlaceHardBench_20260206_json_benchmark",
+   "episode_index": 124,
+   "instruction": "Pick up the red apple and place it in or on the gray cracked stone bowl",
+   "episode_seconds": 40,
+   "category": "Objadecorativeapple",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 68,
+   "benchmark": "pnp-v2",
+   "leaderboard_task": "mb_pnp",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceHardBench/FrankaPickandPlaceHardBench_20260206_json_benchmark",
+   "episode_index": 317,
+   "instruction": "Pick up the ceramic ocarina and place it in or on the wide rustic terracotta bowl",
+   "episode_seconds": 40,
+   "category": "Objaocarina",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 69,
+   "benchmark": "pnp-v2",
+   "leaderboard_task": "mb_pnp",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceHardBench/FrankaPickandPlaceHardBench_20260206_json_benchmark",
+   "episode_index": 520,
+   "instruction": "Pick up the black leather collar with spikes and place it in or on the woodeowl",
+   "episode_seconds": 40,
+   "category": "Objacollar",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 70,
+   "benchmark": "pnp-v2",
+   "leaderboard_task": "mb_pnp",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceHardBench/FrankaPickandPlaceHardBench_20260206_json_benchmark",
+   "episode_index": 620,
+   "instruction": "Pick up the black payment terminal and place it in or on the bowl",
+   "episode_seconds": 40,
+   "category": "Objapaymentterminal",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 71,
+   "benchmark": "pnp-v2",
+   "leaderboard_task": "mb_pnp",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceHardBench/FrankaPickandPlaceHardBench_20260206_json_benchmark",
+   "episode_index": 689,
+   "instruction": "Pick up the purple rectangular packet with cupcake image and place it in or on the rustic bowl",
+   "episode_seconds": 40,
+   "category": "Objafoodpacket",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 72,
+   "benchmark": "pnp-v2",
+   "leaderboard_task": "mb_pnp",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceHardBench/FrankaPickandPlaceHardBench_20260206_json_benchmark",
+   "episode_index": 820,
+   "instruction": "Pick up the folded origami paper crane and place it in or on the round gray ceramic bowl",
+   "episode_seconds": 40,
+   "category": "Objaorigamicrane",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 73,
+   "benchmark": "pnp-v2",
+   "leaderboard_task": "mb_pnp",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceHardBench/FrankaPickandPlaceHardBench_20260206_json_benchmark",
+   "episode_index": 852,
+   "instruction": "Pick up the instrumentality and place it in or on the rustic shallow clay bowl terracotta",
+   "episode_seconds": 40,
+   "category": "Objawallhook",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 74,
+   "benchmark": "pnp-v2",
+   "leaderboard_task": "mb_pnp",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceHardBench/FrankaPickandPlaceHardBench_20260206_json_benchmark",
+   "episode_index": 874,
+   "instruction": "Pick up the rusty spray paint can with blue and place it in or on the medium dark cooking pot with handles",
+   "episode_seconds": 40,
+   "category": "Objaspraypaintcan",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 75,
+   "benchmark": "pnp-v2",
+   "leaderboard_task": "mb_pnp",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceHardBench/FrankaPickandPlaceHardBench_20260206_json_benchmark",
+   "episode_index": 925,
+   "instruction": "Pick up the colorful mosaic tile in stone and place it in or on the white ceramic mug with handle",
+   "episode_seconds": 40,
+   "category": "Objamosaicfragment",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 76,
+   "benchmark": "pnp-v2",
+   "leaderboard_task": "mb_pnp",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceHardBench/FrankaPickandPlaceHardBench_20260206_json_benchmark",
+   "episode_index": 976,
+   "instruction": "Pick up the red polka dot bowtie and place it in or on the green bowl",
+   "episode_seconds": 40,
+   "category": "Objabowtie",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 77,
+   "benchmark": "pnp-next-to-v2",
+   "leaderboard_task": "mb_pnp_next_to",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark",
+   "episode_index": 101,
+   "instruction": "Pick up the tall cream colored candle and place it next to the green plastic spray bottle with nozzle",
+   "episode_seconds": 30,
+   "category": "Objacandle",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 78,
+   "benchmark": "pnp-next-to-v2",
+   "leaderboard_task": "mb_pnp_next_to",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark",
+   "episode_index": 112,
+   "instruction": "Pick up the wood chisel and place it next to the bronze female statue",
+   "episode_seconds": 30,
+   "category": "Objachisel",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 79,
+   "benchmark": "pnp-next-to-v2",
+   "leaderboard_task": "mb_pnp_next_to",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark",
+   "episode_index": 148,
+   "instruction": "Pick up the sharp butterfly knife with wood and place it next to the glossy yellow ceramic vase",
+   "episode_seconds": 30,
+   "category": "Objabutterflyknife",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 80,
+   "benchmark": "pnp-next-to-v2",
+   "leaderboard_task": "mb_pnp_next_to",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark",
+   "episode_index": 222,
+   "instruction": "Pick up the open brown cardboard box packaging and place it next to the vintage blue twin-bell alarm clock",
+   "episode_seconds": 30,
+   "category": "Box",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 81,
+   "benchmark": "pnp-next-to-v2",
+   "leaderboard_task": "mb_pnp_next_to",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark",
+   "episode_index": 284,
+   "instruction": "Pick up the green and black pliers and place it next to the small grassy patch with dirt",
+   "episode_seconds": 30,
+   "category": "Objapliers",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 82,
+   "benchmark": "pnp-next-to-v2",
+   "leaderboard_task": "mb_pnp_next_to",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark",
+   "episode_index": 317,
+   "instruction": "Pick up the black rectangular device with pin screen and place it next to the small shiny gold dog statue",
+   "episode_seconds": 30,
+   "category": "Objakeypad",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 83,
+   "benchmark": "pnp-next-to-v2",
+   "leaderboard_task": "mb_pnp_next_to",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark",
+   "episode_index": 436,
+   "instruction": "Pick up the open-end wrench and place it next to the open medium brown cardboard box",
+   "episode_seconds": 30,
+   "category": "Objawrench",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 84,
+   "benchmark": "pnp-next-to-v2",
+   "leaderboard_task": "mb_pnp_next_to",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark",
+   "episode_index": 443,
+   "instruction": "Pick up the rustic wooden mug with handle and place it next to the red envelope with triangular gray flap",
+   "episode_seconds": 30,
+   "category": "Objamug",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 85,
+   "benchmark": "pnp-next-to-v2",
+   "leaderboard_task": "mb_pnp_next_to",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark",
+   "episode_index": 674,
+   "instruction": "Pick up the blue calendar with mountain design and place it next to the slim gold metallic phone",
+   "episode_seconds": 30,
+   "category": "Objawallcalendar",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 86,
+   "benchmark": "pnp-next-to-v2",
+   "leaderboard_task": "mb_pnp_next_to",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark",
+   "episode_index": 761,
+   "instruction": "Pick up the silver bullet with red band tip and place it next to the rectangular dark gray tufted pillow",
+   "episode_seconds": 30,
+   "category": "Objadecorativereplica",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 87,
+   "benchmark": "pnp-next-to-v2",
+   "leaderboard_task": "mb_pnp_next_to",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark",
+   "episode_index": 914,
+   "instruction": "Pick up the locking pliers and place it next to the soapdispenser",
+   "episode_seconds": 30,
+   "category": "Objalockingpliers",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 88,
+   "benchmark": "pnp-next-to-v2",
+   "leaderboard_task": "mb_pnp_next_to",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark",
+   "episode_index": 976,
+   "instruction": "Pick up the lavender soap bar with hole and emboss and place it next to the cream candle in blue holder",
+   "episode_seconds": 30,
+   "category": "Objasoap",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 89,
+   "benchmark": "pnp-color-v2",
+   "leaderboard_task": "mb_pnp_color",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceColorHardBench/FrankaPickandPlaceColorHardBench_20260304_json_benchmark",
+   "episode_index": 111,
+   "instruction": "Pick up the green circular button with eyes and place it in or on the blue decorative dish",
+   "episode_seconds": 40,
+   "category": "Objabutton",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 90,
+   "benchmark": "pnp-color-v2",
+   "leaderboard_task": "mb_pnp_color",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceColorHardBench/FrankaPickandPlaceColorHardBench_20260304_json_benchmark",
+   "episode_index": 145,
+   "instruction": "Pick up the white headband with purple visor and place it in or on the white bowl",
+   "episode_seconds": 40,
+   "category": "Objaheadband",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 91,
+   "benchmark": "pnp-color-v2",
+   "leaderboard_task": "mb_pnp_color",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceColorHardBench/FrankaPickandPlaceColorHardBench_20260304_json_benchmark",
+   "episode_index": 271,
+   "instruction": "Pick up the black digital music player and place it in or on the orange decorative box",
+   "episode_seconds": 40,
+   "category": "Objadigitalmusicplayer",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 92,
+   "benchmark": "pnp-color-v2",
+   "leaderboard_task": "mb_pnp_color",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceColorHardBench/FrankaPickandPlaceColorHardBench_20260304_json_benchmark",
+   "episode_index": 318,
+   "instruction": "Pick up the blue paper ticket with string and place it in or on the white bowl",
+   "episode_seconds": 40,
+   "category": "Objaticket",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 93,
+   "benchmark": "pnp-color-v2",
+   "leaderboard_task": "mb_pnp_color",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceColorHardBench/FrankaPickandPlaceColorHardBench_20260304_json_benchmark",
+   "episode_index": 353,
+   "instruction": "Pick up the cylindrical dark fabric nhl pencilcase and place it in or on the black bowl",
+   "episode_seconds": 40,
+   "category": "Objapencilcase",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 94,
+   "benchmark": "pnp-color-v2",
+   "leaderboard_task": "mb_pnp_color",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceColorHardBench/FrankaPickandPlaceColorHardBench_20260304_json_benchmark",
+   "episode_index": 375,
+   "instruction": "Pick up the vintage wooden hand plane and place it in or on the black bowl",
+   "episode_seconds": 40,
+   "category": "Objahandplane",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 95,
+   "benchmark": "pnp-color-v2",
+   "leaderboard_task": "mb_pnp_color",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceColorHardBench/FrankaPickandPlaceColorHardBench_20260304_json_benchmark",
+   "episode_index": 435,
+   "instruction": "Pick up the orange speaker and place it in or on the purple bowl",
+   "episode_seconds": 40,
+   "category": "Objaportablespeaker",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 96,
+   "benchmark": "pnp-color-v2",
+   "leaderboard_task": "mb_pnp_color",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceColorHardBench/FrankaPickandPlaceColorHardBench_20260304_json_benchmark",
+   "episode_index": 674,
+   "instruction": "Pick up the equipment and place it in or on the purple ceramic bowl",
+   "episode_seconds": 40,
+   "category": "Objacassetteplayer",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 97,
+   "benchmark": "pnp-color-v2",
+   "leaderboard_task": "mb_pnp_color",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceColorHardBench/FrankaPickandPlaceColorHardBench_20260304_json_benchmark",
+   "episode_index": 688,
+   "instruction": "Pick up the shiny gold cursive script and place it in or on the orange bowl",
+   "episode_seconds": 40,
+   "category": "Objadecorativescript",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 98,
+   "benchmark": "pnp-color-v2",
+   "leaderboard_task": "mb_pnp_color",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceColorHardBench/FrankaPickandPlaceColorHardBench_20260304_json_benchmark",
+   "episode_index": 785,
+   "instruction": "Pick up the golden yellow apple with small stem and place it in or on the blue bowl",
+   "episode_seconds": 40,
+   "category": "Fruit",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 99,
+   "benchmark": "pnp-color-v2",
+   "leaderboard_task": "mb_pnp_color",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceColorHardBench/FrankaPickandPlaceColorHardBench_20260304_json_benchmark",
+   "episode_index": 861,
+   "instruction": "Pick up the ace of spades and place it in or on the orange bowl",
+   "episode_seconds": 40,
+   "category": "Objaplayingcard",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  },
+  {
+   "slot": 100,
+   "benchmark": "pnp-color-v2",
+   "leaderboard_task": "mb_pnp_color",
+   "benchmark_dir": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceColorHardBench/FrankaPickandPlaceColorHardBench_20260304_json_benchmark",
+   "episode_index": 949,
+   "instruction": "Pick up the glossy deep red arrow sign and place it in or on the light green wooden bowl",
+   "episode_seconds": 40,
+   "category": "Objadecorativearrow",
+   "policy_cameras": [
+    "droid_shoulder_light_randomization",
+    "randomized_zed2_analogue_1",
+    "wrist_camera_zed_mini"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+tool: hold
+capability: wait
+purpose: Keeps the arm still, then observes; may report load.
+use_when: something needs to settle, or you need load to tell whether an object is held
+avoid_when: you only want a fresh image (every result carries one)
+proves: the state after waiting
+not_proof: anything new when repeated
+how: ''
+limits:
+- text: 1 to {v} chunks per call
+  v: 4
+  source:
+    schema: max_chunks
+errors: {}

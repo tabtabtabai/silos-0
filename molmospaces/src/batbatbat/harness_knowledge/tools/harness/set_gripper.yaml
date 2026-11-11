@@ -1,0 +1,10 @@
+tool: set_gripper
+capability: gripper
+purpose: Opens (0) or closes (1) the gripper without moving the arm.
+use_when: the fingers surround the chosen part (close), or before an approach (open)
+avoid_when: you already hold what you need
+proves: 'measured closure right after closing, the reference for later checks while carrying'
+not_proof: 'that anything is held: thin items read nearly closed, shallow grips read partly closed; lift a little to know'
+how: 'A grasp_verified field in the evidence is not computed by this harness (always false); ignore it and judge by a test lift and the images.'
+limits: []
+errors: {}

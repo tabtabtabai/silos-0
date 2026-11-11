@@ -1,0 +1,17 @@
+tool: move_pose
+capability: move
+purpose: Moves the gripper mount to a position and orientation (quaternion w, x, y, z).
+use_when: the closing direction must turn to fit a narrow part, or to tilt away from a wall
+avoid_when: a pure translation will do (move_to)
+proves: where the mount ended up
+not_proof: contact or grasp; paths are not collision-checked
+how: duration_s and arrival work as in move_to.
+limits:
+- text: one call turns at most {v} degrees
+  v: 90
+  source:
+    code: batbatbat.harness.kinematics
+    contains: rotation exceeds 90 degrees
+errors:
+  rotation exceeds: Split the turn into two calls.
+  IK unreachable: Try a smaller tilt or a position closer to the robot.

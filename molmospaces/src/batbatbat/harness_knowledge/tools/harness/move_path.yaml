@@ -1,0 +1,18 @@
+tool: move_path
+capability: move
+purpose: Moves the gripper mount through several waypoints continuously, sharing execution chunks.
+use_when: a grounded sequence is ready to run without inspecting between its movements
+avoid_when: contact, a possible drop, or an uncertain pose requires a fresh observation before continuing
+proves: execution and arrival results for the path
+not_proof: collision clearance, a successful grasp, or successful placement
+how: Send waypoints with xyz and optional quaternion_wxyz, duration_s and gripper. Each segment follows the
+  move_to and move_pose limits. Gripper changes happen on arrival and settle before continuing. Use separate
+  calls when you need to check a grasp before carrying. The configured motion speed also applies to the path.
+limits:
+- text: at most {v} waypoints per call
+  v: 6
+  source:
+    schema: waypoints.maxItems
+errors:
+  IK unreachable: Correct the unreachable waypoint or use a reachable intermediate pose.
+  Target not reached: Inspect the returned progress and measured state before issuing a corrected path.

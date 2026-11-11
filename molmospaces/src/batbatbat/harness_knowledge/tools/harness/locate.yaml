@@ -1,0 +1,32 @@
+tool: locate
+capability: perceive
+purpose: Turns the same visible point, picked in two camera images, into a 3D position; no robot time.
+use_when: you need a target not measured since the last contact, or a destination
+avoid_when: it has not moved since you measured it, or the point is hidden in either view
+proves: where a visible surface point is, with error figures
+not_proof: the object's centre, a grasp pose, or that it is the right object
+how: Pick the same physical feature (corner, edge, marking) in both views, not two silhouette centres; points are
+  [x, y] from the top left, 0-1000.
+limits:
+- text: rejected when the rays miss each other by more than {v} m
+  v: 0.025
+  source:
+    code: batbatbat.harness.geometry
+    contains: gap > 0.025
+- text: or reproject more than {v} pixels apart
+  v: 12
+  source:
+    code: batbatbat.harness.geometry
+    contains: max(errors) > 12
+errors:
+  inconsistent points: The two points are not the same feature. Pick a sharper shared feature, or one visible in
+    both views.
+  point behind camera: A coordinate is wrong or swapped. Check [x, y] order and the 0-1000 scale.
+variants:
+  locator:
+    purpose: Turns a described visible feature into a 3D position through a separate vision model; no robot time.
+    how: Send object as a precise description of one small visible feature and its side. The vision model picks
+      the image points. Do not send image coordinates; if hidden in either view, describe a different feature.
+    errors:
+      inconsistent points: Describe a sharper shared feature, or one visible in both views.
+      point behind camera: Describe a different unambiguous feature and try again.
