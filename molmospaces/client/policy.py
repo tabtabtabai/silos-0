@@ -1,4 +1,4 @@
-"""MolmoSpaces policy that drives the batbatbat policy server (batbatbat-serve) over its websocket.
+"""MolmoSpaces policy that drives the silos0 policy server (silos-0-serve) over its websocket.
 
 Pass `client.policy:HarnessEvalConfig` to MolmoSpaces' eval_main.py; scripts/run_slot.sh does this for one slot.
 
@@ -19,7 +19,7 @@ import numpy as np
 from websockets.sync.client import connect
 
 import client.fixes  # noqa: F401  (MolmoSpaces v0.2.9 articulated-object loader fix)
-from batbatbat.harness.wire import pack, unpack
+from silos0.harness.wire import pack, unpack
 from client.request import HORIZON, build_request, to_action
 from molmo_spaces.configs.policy_configs import BasePolicyConfig
 from molmo_spaces.configs.robot_configs import FrankaRobotConfig

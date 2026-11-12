@@ -1,4 +1,4 @@
-# Frozen sol200-flagshipv3b policy. Endpoint and key are supplied at runtime.
+# Frozen silos-0 policy. Endpoint and key are supplied at runtime.
 mode: llm-only
 open_loop_horizon: 8
 move_speed_multiplier: 4.0

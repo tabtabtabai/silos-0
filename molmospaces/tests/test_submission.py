@@ -13,10 +13,10 @@ import numpy as np
 import pytest
 from websockets.sync.client import connect
 
-from batbatbat.probe import fake_observation
-from batbatbat.harness.server import Service
-from batbatbat.harness.wire import pack, unpack
-from batbatbat.submission import load_config
+from silos0.probe import fake_observation
+from silos0.harness.server import Service
+from silos0.harness.wire import pack, unpack
+from silos0.submission import load_config
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "configs/submission.yaml"
@@ -24,11 +24,11 @@ PROMPT_SHA = "f8cf317b38bf94ac786a06a213b051a68e94f50d2199c758ea909e6e5d041229"
 
 
 def config():
-    return load_config(CONFIG, {"BATBATBAT_LLM_BASE_URL": "https://example.invalid/v1", "BATBATBAT_LLM_API_KEY": "test"})[0]
+    return load_config(CONFIG, {"SILOS0_LLM_BASE_URL": "https://example.invalid/v1", "SILOS0_LLM_API_KEY": "test"})[0]
 
 
 def test_frozen_policy_matches_recorded_submission(monkeypatch):
-    monkeypatch.setenv("BATBATBAT_LLM_REASONING_EFFORT", "high")
+    monkeypatch.setenv("SILOS0_LLM_REASONING_EFFORT", "high")
     service = Service(config(), lambda **row: None, warmup=False)
     assert service.metadata["planner_prompt_sha256"] == PROMPT_SHA
     assert service.metadata["knowledge"]["knowledge_sha256"] == "7bcdff0fd4a21edb"
@@ -40,10 +40,10 @@ def test_frozen_policy_matches_recorded_submission(monkeypatch):
 
 
 @pytest.mark.parametrize("env", [
-    {}, {"BATBATBAT_LLM_BASE_URL": "https://example.invalid/v1"},
-    {"BATBATBAT_LLM_BASE_URL": "http://example.invalid/v1", "BATBATBAT_LLM_API_KEY": "test"},
-    {"BATBATBAT_LLM_BASE_URL": "https://user:secret@example.invalid/v1", "BATBATBAT_LLM_API_KEY": "test"},
-    {"BATBATBAT_LLM_BASE_URL": "https://example.invalid/v1?key=secret", "BATBATBAT_LLM_API_KEY": "test"},
+    {}, {"SILOS0_LLM_BASE_URL": "https://example.invalid/v1"},
+    {"SILOS0_LLM_BASE_URL": "http://example.invalid/v1", "SILOS0_LLM_API_KEY": "test"},
+    {"SILOS0_LLM_BASE_URL": "https://user:secret@example.invalid/v1", "SILOS0_LLM_API_KEY": "test"},
+    {"SILOS0_LLM_BASE_URL": "https://example.invalid/v1?key=secret", "SILOS0_LLM_API_KEY": "test"},
 ])
 def test_no_implicit_credentials_or_unsafe_remote_url(env):
     with pytest.raises(ValueError):
@@ -51,7 +51,7 @@ def test_no_implicit_credentials_or_unsafe_remote_url(env):
 
 
 def test_provider_failure_never_echoes_response_secrets(monkeypatch):
-    from batbatbat.harness.responses_api import _ResponsesBackend
+    from silos0.harness.responses_api import _ResponsesBackend
     import requests
     class Reply:
         status_code = 401
@@ -90,12 +90,12 @@ def test_http_to_websocket_and_episode_isolation(tmp_path):
     with socket.socket() as sock:
         sock.bind(("127.0.0.1", 0))
         port = sock.getsockname()[1]
-    env = {k: v for k, v in os.environ.items() if not k.startswith("BATBATBAT_")}
+    env = {k: v for k, v in os.environ.items() if not k.startswith("SILOS0_")}
     key_file = tmp_path / "llm-key"
     key_file.write_text(key + "\n")
     log = tmp_path / "decisions.jsonl"
     with (tmp_path / "server.log").open("w+") as output:
-        process = subprocess.Popen([sys.executable, "-m", "batbatbat.submission", "--config", str(CONFIG),
+        process = subprocess.Popen([sys.executable, "-m", "silos0.submission", "--config", str(CONFIG),
                                     "--port", str(port), "--log", str(log),
                                     "--llm-base-url", f"http://127.0.0.1:{http.server_port}/v1",
                                     "--llm-api-key-file", str(key_file), "--llm-model", "gpt-6.1-sol"], env=env, stdout=output, stderr=output)

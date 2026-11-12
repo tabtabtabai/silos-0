@@ -14,14 +14,14 @@ limits:
   - llm-only
   - v1
   source:
-    default: batbatbat.harness.kinematics:Franka.path
+    default: silos0.harness.kinematics:Franka.path
     param: max_move
 - text: a single move may travel at most {v} m
   v: 0.8
   modes:
   - v3
   source:
-    const: batbatbat.harness.policy:V3_DEFAULTS
+    const: silos0.harness.policy:V3_DEFAULTS
     key: move_max_m
 - text: duration_s ({v[0]}-{v[1]} robot s) is the time allowed to arrive; the arm stops early once there
   v:
@@ -32,7 +32,7 @@ limits:
 - text: the result says if it arrived (within {v} m) and the error left
   v: 0.005
   source:
-    const: batbatbat.harness.policy:MOVE_POSITION_TOLERANCE_M
+    const: silos0.harness.policy:MOVE_POSITION_TOLERANCE_M
 errors:
   move exceeds: Split the move into two, or move toward the target first.
   Target not reached: Stalled means something is in the way; go up or around. Out of time means allow longer duration_s.

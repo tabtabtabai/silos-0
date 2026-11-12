@@ -1,6 +1,6 @@
-# BatBatBat
+# silos-0
 
-Code to run the BatBatBat policy (**sol200-flagshipv3b**: an API-hosted LLM planner driving analytical motion
+Code to run the **silos-0** policy (an API-hosted LLM planner driving analytical motion
 tools, with no VLA or model checkpoint) on public robot-manipulation benchmarks. Each benchmark has its own
 self-contained directory with the policy server, the simulator client and run instructions.
 

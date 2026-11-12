@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import numpy as np
 
-HORIZON = 8           # the server's chunk length; batbatbat/step must advance by exactly this
+HORIZON = 8           # the server's chunk length; silos0/step must advance by exactly this
 GRIP_FULL = 0.824033  # MuJoCo 2F-85 driver joint at full close (as in MolmoSpaces' own pi client)
 
 
@@ -44,12 +44,12 @@ def build_request(obs: dict, *, cams: tuple[str, str, str], T_world_root, prompt
         "observation/gripper_position": np.array([grip], np.float32),
         "prompt": prompt,
         "session_id": session_id,
-        "batbatbat/benchmark": benchmark, "batbatbat/slot": slot, "batbatbat/env_id": 0, "batbatbat/episode": 0,
-        "batbatbat/step": step,
-        "batbatbat/motion_time_limit_s": float(motion_limit_s), "batbatbat/control_hz": 15.0,
-        "batbatbat/calibration": {"left": camera_to_root(obs[f"sensor_param_{left}"], T_root_world),
+        "silos0/benchmark": benchmark, "silos0/slot": slot, "silos0/env_id": 0, "silos0/episode": 0,
+        "silos0/step": step,
+        "silos0/motion_time_limit_s": float(motion_limit_s), "silos0/control_hz": 15.0,
+        "silos0/calibration": {"left": camera_to_root(obs[f"sensor_param_{left}"], T_root_world),
                                   "right": camera_to_root(obs[f"sensor_param_{right}"], T_root_world)},
-        "batbatbat/camera_notes": {"right": "this is the WRIST camera again; it moves with the hand"} if right == wrist else {},
+        "silos0/camera_notes": {"right": "this is the WRIST camera again; it moves with the hand"} if right == wrist else {},
     }
 
 

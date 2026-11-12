@@ -310,9 +310,9 @@ def make_planner(config, transport=None):
     cfg = dict(config["planner"])
     # Existing compat backends read effort at construction. One server hosts one
     # planner configuration; reject a mismatch rather than stamp fictitious effort.
-    actual = os.environ.get("BATBATBAT_LLM_REASONING_EFFORT", "").strip()
+    actual = os.environ.get("SILOS0_LLM_REASONING_EFFORT", "").strip()
     if actual != cfg["effort"]:
-        raise ValueError("BATBATBAT_LLM_REASONING_EFFORT must equal planner.effort")
+        raise ValueError("SILOS0_LLM_REASONING_EFFORT must equal planner.effort")
     if config.get("mode", "llm-only") != "llm-only":
         raise ValueError("mode must be llm-only")
     horizon = config.get("open_loop_horizon", 8)   # policy.execution_settings' default, which validates it
@@ -388,12 +388,12 @@ def make_planner(config, transport=None):
 
 
 def knowledge_packet(config, tool_specs=None):
-    """The general knowledge packet (batbatbat.harness_knowledge) for this config's own tools.
+    """The general knowledge packet (silos0.harness_knowledge) for this config's own tools.
 
     config `knowledge:` takes optional `layers` (default: the package's defaults), `features` (harness features
     the packet may rely on, e.g. budget_meter) and `candidates` (true also renders candidate notes, for testing
     them). The robot is this harness's DROID Franka; max_calls comes from the planner config."""
-    from batbatbat.harness_knowledge import packet as kp
+    from silos0.harness_knowledge import packet as kp
     spec = config["knowledge"] or {}
     if not isinstance(spec, dict) or set(spec) - {"layers", "features", "candidates"}:
         raise ValueError("knowledge takes optional layers, features and candidates")

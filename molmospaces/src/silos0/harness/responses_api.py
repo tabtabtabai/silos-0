@@ -53,7 +53,7 @@ class _ResponsesBackend:
         if observe is not None:
             send = self._post
             self._post = lambda body: observe(body, send)
-        self._effort = os.environ.get("BATBATBAT_LLM_REASONING_EFFORT", "").strip()
+        self._effort = os.environ.get("SILOS0_LLM_REASONING_EFFORT", "").strip()
         self._system = SYSTEM_PROMPT if system is None else system
         self._tool_specs = TOOLS_SPEC if tools is None else tools   # `_tools()` below renders them
         self._items = []

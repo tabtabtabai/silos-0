@@ -1,6 +1,6 @@
 """Optional live view of a rollout while it runs.
 
-With BATBATBAT_LIVE_DIR set, the server writes the latest frame of each camera it receives (one per 32-step chunk)
+With SILOS0_LIVE_DIR set, the server writes the latest frame of each camera it receives (one per 32-step chunk)
 and a small state file there. Writes are atomic renames, so a reader never sees half a frame. Off by default.
 """
 from __future__ import annotations
@@ -22,7 +22,7 @@ class LiveTap:
 
     @classmethod
     def from_env(cls):
-        directory = os.environ.get("BATBATBAT_LIVE_DIR", "").strip()
+        directory = os.environ.get("SILOS0_LIVE_DIR", "").strip()
         return cls(directory) if directory else None
 
     def _replace(self, name, data):
@@ -39,4 +39,4 @@ class LiveTap:
                 Image.fromarray(np.asarray(obs[key], dtype=np.uint8)).save(buf, format="JPEG", quality=80)
                 self._replace(f"{side}.jpg", buf.getvalue())
         self._replace("state.json", json.dumps({"time": time.time(), "session_id": session_id,
-                                                "step": obs.get("batbatbat/step"), "prompt": obs.get("prompt")}).encode())
+                                                "step": obs.get("silos0/step"), "prompt": obs.get("prompt")}).encode())

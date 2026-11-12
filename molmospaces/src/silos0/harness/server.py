@@ -1,4 +1,4 @@
-"""Serve the tool harness behind the RoboLab-style policy contract. Start it with batbatbat-serve (submission.py)."""
+"""Serve the tool harness behind the RoboLab-style policy contract. Start it with silos-0-serve (submission.py)."""
 from __future__ import annotations
 
 import asyncio
@@ -82,7 +82,7 @@ class Service:
         planner = planner_factory(config)
         if warmup:
             planner.ping()  # actual configured provider and tool-bearing wire; fail before listen
-        revision = os.environ.get("BATBATBAT_GIT_SHA")
+        revision = os.environ.get("SILOS0_GIT_SHA")
         if not revision:
             try:
                 revision = subprocess.check_output(["git", "-C", str(Path(__file__).resolve().parents[3]),
@@ -98,7 +98,7 @@ class Service:
             source_digest.update(str(path.relative_to(package.parent)).encode())
             source_digest.update(path.read_bytes())
         self.metadata = {
-            "policy": "batbatbat-harness-llm", "control_space": "joint_position", "action_dim": 8,
+            "policy": "silos-0-harness-llm", "control_space": "joint_position", "action_dim": 8,
             "orchestrator_kind": "harness",
             "policy_checkpoint": config.get("policy_checkpoint"),
             "open_loop_horizon": self.horizon, "control_hz": 15,
@@ -139,12 +139,12 @@ class Service:
         sid = obs.get("session_id")
         if not isinstance(sid, str) or not sid or len(sid) > 200:
             raise ValueError("session_id must be a nonempty string of at most 200 characters")
-        identity = tuple(obs.get(k) for k in ("batbatbat/benchmark", "batbatbat/slot", "batbatbat/env_id", "batbatbat/episode"))
+        identity = tuple(obs.get(k) for k in ("silos0/benchmark", "silos0/slot", "silos0/env_id", "silos0/episode"))
         key = (sid, identity)
         # Hand-runs have no benchmark slot and reuse run/env IDs across tasks.
         # Keep each instruction's history separate; numbered benchmark slots
         # retain strict task identity checks. A new task must still start at 0.
-        if obs.get("batbatbat/slot") is None:
+        if obs.get("silos0/slot") is None:
             key = (sid, identity, obs["prompt"])
         now = time.monotonic()
         with self.registry_lock:
@@ -156,8 +156,8 @@ class Service:
                         session.lock.release()
             session = self.sessions.get(key)
             if session is None:
-                if obs["batbatbat/step"] != 0:
-                    raise ValueError("unknown/expired session must start at batbatbat/step=0 with a new id")
+                if obs["silos0/step"] != 0:
+                    raise ValueError("unknown/expired session must start at silos0/step=0 with a new id")
                 if len(self.sessions) >= self.max_sessions:
                     raise ValueError("session capacity reached; active episodes cannot be evicted")
                 planner = self.planner_factory(self.config)
@@ -169,7 +169,7 @@ class Service:
                                            "move_path": bool(self.config.get("move_path")),
                                            "no_done": bool(self.config.get("no_done")),
                                            "motion_urgency": self.config.get("motion_urgency", False)},
-                                  opening="batbatbat/task_context" if self.config.get("task") == "grasp" else None,
+                                  opening="silos0/task_context" if self.config.get("task") == "grasp" else None,
                                   aids=self.config.get("grasp_aids"),
                                   locator=(Locator(self.config["locator"],
                                                    record=lambda **row: self.record(session_id=sid, **row))
@@ -200,9 +200,9 @@ class Service:
         if not isinstance(obs, dict):
             raise ValueError("observation must be a dictionary")
         validate_obs(obs)
-        step = obs.get("batbatbat/step")
+        step = obs.get("silos0/step")
         if isinstance(step, bool) or not isinstance(step, int) or step < 0:
-            raise ValueError("batbatbat/step must be a nonnegative integer")
+            raise ValueError("silos0/step must be a nonnegative integer")
         session = self._session(obs)
         if self.live is not None:
             try:
@@ -215,7 +215,7 @@ class Service:
             if step == session.last_step:
                 return session.last_reply  # retransmit after a lost reply without rerunning tools
             if step != session.last_step + self.horizon:
-                raise ValueError(f"batbatbat/step must advance by exactly open_loop_horizon={self.horizon}")
+                raise ValueError(f"silos0/step must advance by exactly open_loop_horizon={self.horizon}")
             try:
                 bind_trace = getattr(session.episode.planner, "set_trace_context", None)
                 if callable(bind_trace):

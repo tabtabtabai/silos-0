@@ -17,8 +17,8 @@ def fake_observation():
         "observation/gripper_position": np.array([0], dtype=np.float32),
         "prompt": "Synthetic connection test: hold the current pose. The images are blank.",
         "session_id": "probe-" + uuid.uuid4().hex,
-        "batbatbat/env_id": 0, "batbatbat/episode": 0, "batbatbat/step": 0,
-        "batbatbat/control_hz": 15, "batbatbat/motion_time_limit_s": 90,
+        "silos0/env_id": 0, "silos0/episode": 0, "silos0/step": 0,
+        "silos0/control_hz": 15, "silos0/motion_time_limit_s": 90,
     })
     return obs
 

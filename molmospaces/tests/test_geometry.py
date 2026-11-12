@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
-from batbatbat.harness.geometry import CAMERA_KEYS, locate
-from batbatbat.harness.kinematics import Franka, rotvec, exp_rotation
+from silos0.harness.geometry import CAMERA_KEYS, locate
+from silos0.harness.kinematics import Franka, rotvec, exp_rotation
 Q = np.array([0, -np.pi/5, 0, -4*np.pi/5, 0, 3*np.pi/5, 0])
 def obs(sid="a", step=0):
     image = np.zeros((720, 1280, 3), np.uint8)
@@ -11,8 +11,8 @@ def obs(sid="a", step=0):
         T[0, 3] = x
         cameras[side] = {"K": np.array([[500, 0, 640], [0, 500, 360], [0, 0, 1]]),
                          "T_base_camera": T, "frame": "robot_root", "convention": "opencv"}
-    return {"session_id": sid, "prompt": "put the cube in the bowl", "batbatbat/step": step,
-            "batbatbat/slot": 1, "batbatbat/env_id": 0, "batbatbat/episode": 0, "batbatbat/benchmark": "test.v1",
+    return {"session_id": sid, "prompt": "put the cube in the bowl", "silos0/step": step,
+            "silos0/slot": 1, "silos0/env_id": 0, "silos0/episode": 0, "silos0/benchmark": "test.v1",
             "observation/joint_position": Q.copy(), "observation/gripper_position": np.array([0.]),
             "observation/image": image, **{key: image for key in CAMERA_KEYS.values()},
             "observation/camera_calibration": cameras}

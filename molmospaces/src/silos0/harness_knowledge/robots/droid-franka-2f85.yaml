@@ -5,10 +5,10 @@ facts:
   - text: "Positions are metres in the robot-root frame: +x forward, +y left, +z up."
   - text: "The commanded point is the gripper mount, not the fingertips. Pointing straight down, the fingertip ends are about {v} m below the mount."
     v: 0.15
-    source: {const: "batbatbat.harness.policy:FINGERTIP_OFFSET_M"}
+    source: {const: "silos0.harness.policy:FINGERTIP_OFFSET_M"}
   - text: "Open, the finger pads are {v} m apart, so the part you grip must be narrower than that where the pads meet it."
     v: 0.085
-    source: {const: "batbatbat.harness.policy:MAX_OPENING_M"}
+    source: {const: "silos0.harness.policy:MAX_OPENING_M"}
   - text: "Each pad is about 2 cm wide and runs about 4 cm up from the fingertip end; closing swings the pads inward on an arc, shifting their height by about 1 cm."
   - text: "The fingers point along the mount's x-axis and close along its y-axis. Pointing down, turning the mount about the vertical turns the closing direction by the same angle."
   - text: "Gripper commands are 0 open and 1 closed. Measured closure is a hint, not a verdict: thin items may read almost closed while held, shallow grips partly closed yet drop. A short lift decides."
@@ -16,4 +16,4 @@ facts:
     v: 0.1
   - text: "Control runs at {v} Hz."
     v: 15
-    source: {const: "batbatbat.harness.policy:FPS"}
+    source: {const: "silos0.harness.policy:FPS"}

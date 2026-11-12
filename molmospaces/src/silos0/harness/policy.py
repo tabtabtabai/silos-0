@@ -31,7 +31,7 @@ GRIPPER_SETTLE_STEPS = 20  # a close takes about 19 control steps in free air  #
 GRASP_AIDS = ("fingertips", "closeup")
 # Mount to the fingertip ends along base_link x; Sol's lowest close on RoboLab left the
 # mount 0.151 m over the table. Another simulator's gripper model may differ (MolmoSpaces' MuJoCo 2F-85: 0.141).
-FINGERTIP_OFFSET_M = float(os.environ.get("BATBATBAT_FINGERTIP_OFFSET_M", .15))
+FINGERTIP_OFFSET_M = float(os.environ.get("SILOS0_FINGERTIP_OFFSET_M", .15))
 MAX_OPENING_M = .085       # Robotiq 2F-85 stroke
 CLOSEUP_RADIUS_M = .15     # a move ending with the fingertips this near the last located point brings close-ups
 CLOSEUP_PX = 320           # exterior crop side in native pixels, centred where the fingertip midpoint projects
@@ -41,10 +41,10 @@ WRIST_CLOSEUP = (.30, .30, .95, 1.)  # normalized box of the wrist image that ho
 
 def motion_budget(obs):
     """Use the simulator's motion clock; older clients may omit the budget."""
-    keys = ("batbatbat/motion_time_limit_s", "batbatbat/control_hz")
+    keys = ("silos0/motion_time_limit_s", "silos0/control_hz")
     if not any(key in obs for key in keys):
         return None
-    limit, hz, step = (float(obs[key]) for key in (*keys, "batbatbat/step"))
+    limit, hz, step = (float(obs[key]) for key in (*keys, "silos0/step"))
     if (not all(math.isfinite(v) for v in (limit, hz, step))
             or limit <= 0 or hz <= 0 or step < 0 or not step.is_integer()):
         raise ValueError("Invalid simulator motion budget")
@@ -182,13 +182,13 @@ class Episode:
         for side, key in CAMERA_KEYS.items():
             rgb = np.asarray(obs[key])
             h, w = rgb.shape[:2]
-            note = (obs.get("batbatbat/camera_notes") or {}).get(side)
+            note = (obs.get("silos0/camera_notes") or {}).get(side)
             blocks += [("text", f"{side.upper()} camera{' (' + note + ')' if note else ''}, native {w}x{h}; normalized [x,y] 0..1000:"),
                        image_block(rgb)]
         if self.closeup_due:
             self.closeup_due = False
             blocks += self.closeups(obs)
-        blocks.append(("text", json.dumps({**self.evidence(obs), "control_step": obs["batbatbat/step"]})))
+        blocks.append(("text", json.dumps({**self.evidence(obs), "control_step": obs["silos0/step"]})))
         budget = motion_budget(obs) if self.options.get("motion_urgency", False) else None
         if budget is not None:
             text, timing = budget
@@ -240,7 +240,7 @@ class Episode:
                                 target_xyz=a["target_xyz"].tolist(), actual_xyz=position.tolist(),
                                 stalled_chunks=a.get("stalled_chunks", 0),
                                 near_target=near_target, stall_chunk_limit=stall_limit)
-            self.record(event="move_progress", call_id=a["id"], step=obs["batbatbat/step"],
+            self.record(event="move_progress", call_id=a["id"], step=obs["silos0/step"],
                         residual_tolerance_units=residual,
                         trajectory_finished=elapsed >= a["trajectory_steps"], **a["arrival"])
             if reached or elapsed >= a["deadline_steps"] or stalled:
@@ -440,7 +440,7 @@ class Episode:
             a["remaining"] -= 1
             a["executed"] += 1
             self.gripper_command = float(action[-1, 7] > .5)
-        self.record(event="action", step=obs["batbatbat/step"], instruction=instruction,
+        self.record(event="action", step=obs["silos0/step"], instruction=instruction,
                     stopped=self.stopped, action=action.tolist())
         return {"action": action, "meta.instruction": instruction,
                 "harness": {"stopped": self.stopped, "planner_calls": self.planner.calls}}

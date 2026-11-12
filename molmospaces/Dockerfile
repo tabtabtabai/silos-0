@@ -5,4 +5,4 @@ COPY src ./src
 COPY configs ./configs
 RUN pip install --no-cache-dir .
 EXPOSE 8001
-ENTRYPOINT ["batbatbat-serve", "--host", "0.0.0.0"]
+ENTRYPOINT ["silos-0-serve", "--host", "0.0.0.0"]

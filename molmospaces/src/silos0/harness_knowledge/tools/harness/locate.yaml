@@ -11,12 +11,12 @@ limits:
 - text: rejected when the rays miss each other by more than {v} m
   v: 0.025
   source:
-    code: batbatbat.harness.geometry
+    code: silos0.harness.geometry
     contains: gap > 0.025
 - text: or reproject more than {v} pixels apart
   v: 12
   source:
-    code: batbatbat.harness.geometry
+    code: silos0.harness.geometry
     contains: max(errors) > 12
 errors:
   inconsistent points: The two points are not the same feature. Pick a sharper shared feature, or one visible in

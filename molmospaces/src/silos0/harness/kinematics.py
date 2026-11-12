@@ -62,7 +62,7 @@ class Franka:
         self.limits = np.array([j["limits"] for j in self.model["joints"] if "axis" in j])
         if self.limits.shape != (7, 2):
             raise ValueError("expected seven Franka joints")
-        extra = os.environ.get("BATBATBAT_JOINT_LIMITS_JSON")  # e.g. an FR3: keep only the overlap of both ranges
+        extra = os.environ.get("SILOS0_JOINT_LIMITS_JSON")  # e.g. an FR3: keep only the overlap of both ranges
         if extra:
             other = np.asarray(json.loads(extra), dtype=float)
             self.limits = np.column_stack((np.maximum(self.limits[:, 0], other[:, 0]),

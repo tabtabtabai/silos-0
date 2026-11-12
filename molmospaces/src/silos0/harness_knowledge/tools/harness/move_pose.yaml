@@ -10,7 +10,7 @@ limits:
 - text: one call turns at most {v} degrees
   v: 90
   source:
-    code: batbatbat.harness.kinematics
+    code: silos0.harness.kinematics
     contains: rotation exceeds 90 degrees
 errors:
   rotation exceeds: Split the turn into two calls.

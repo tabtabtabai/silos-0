@@ -1,6 +1,6 @@
-# BatBatBat on MolmoSpaces
+# silos-0 on MolmoSpaces
 
-The **sol200-flagshipv3b** policy run on Ai2's [MolmoSpaces](https://github.com/allenai/molmospaces) benchmarks
+The **silos-0** policy run on Ai2's [MolmoSpaces](https://github.com/allenai/molmospaces) benchmarks
 (MuJoCo, DROID Franka FR3 + Robotiq 2F-85). The policy is an API-hosted LLM planner (`gpt-6.1-sol`, high
 effort, at most 200 planner calls per episode) driving analytical motion tools: two-view stereo localization,
 inverse kinematics and gripper control. It has no VLA and no model checkpoint. The policy prompt and tools are
@@ -8,7 +8,7 @@ the ones used for the RoboLab submission, unchanged.
 
 This directory has three parts:
 
-1. **Policy server** (`src/batbatbat`, `batbatbat-serve`): receives observations over a WebSocket and returns
+1. **Policy server** (`src/silos0`, `silos-0-serve`): receives observations over a WebSocket and returns
    8-step joint-position chunks. It calls the LLM API you give it.
 2. **MolmoSpaces client** (`client/`): the policy class, policy config and eval config MolmoSpaces asks an
    external policy to provide. It sends each observation to the server and plays back its chunks. This is the
@@ -42,6 +42,11 @@ benchmarks scores 54.1 All Combined. One run of 100 episodes is about ±7 points
 were not attempts: the model's first reply was a refusal, and the server ends an episode on a refusal. The other 11
 ran out of robot time, mostly on Open. API models are nondeterministic, so repeated runs will vary.
 
+The full-benchmark entry is [allenai/molmospaces#243](https://github.com/allenai/molmospaces/issues/243)
+(All Combined 85.6; logs at [TabTabTab/molmospace-silos-0](https://huggingface.co/datasets/TabTabTab/molmospace-silos-0)).
+It ran at revision `b203624`, before the package was renamed `silos0` and the policy `silos-0`; the rename
+leaves the planner prompt, knowledge and configuration hashes unchanged.
+
 ## LLM API access
 
 You supply the LLM endpoint and key when you start the server. The endpoint must serve the OpenAI Responses
@@ -52,7 +57,7 @@ reproduction of this result.
 There are two endpoints, and only the server needs the LLM credential:
 
 - **Policy server:** runs locally from this directory, normally `ws://127.0.0.1:8001`. The MolmoSpaces client talks to it.
-- **LLM API:** the base URL and key you pass to `batbatbat-serve`. The server appends `/responses` to the base URL.
+- **LLM API:** the base URL and key you pass to `silos-0-serve`. The server appends `/responses` to the base URL.
 
 No credentials, endpoints, cloud setup or telemetry are included. Decision logs are written locally to
 `outputs/decisions.jsonl`. They contain task text and model responses, so review them before sharing.
@@ -66,17 +71,17 @@ cd molmospaces
 python3.12 -m venv .venv && source .venv/bin/activate
 pip install -e .
 
-# Keep the key in a file outside the repository (or in BATBATBAT_LLM_API_KEY).
-batbatbat-serve \
+# Keep the key in a file outside the repository (or in SILOS0_LLM_API_KEY).
+silos-0-serve \
   --llm-base-url https://<your-endpoint>/v1 \
-  --llm-api-key-file ~/.config/batbatbat/llm-key \
+  --llm-api-key-file ~/.config/silos-0/llm-key \
   --port 8001
 ```
 
 | Option | Default | Meaning |
 |---|---|---|
-| `--llm-base-url` | `$BATBATBAT_LLM_BASE_URL` | API base including its version prefix. HTTPS, no credentials in the URL. |
-| `--llm-api-key-file` | `$BATBATBAT_LLM_API_KEY` | File holding the API key. |
+| `--llm-base-url` | `$SILOS0_LLM_BASE_URL` | API base including its version prefix. HTTPS, no credentials in the URL. |
+| `--llm-api-key-file` | `$SILOS0_LLM_API_KEY` | File holding the API key. |
 | `--llm-api-key` | | The key itself. It is visible in the process list, so prefer the file or the environment. |
 | `--llm-model` | `gpt-6.1-sol` | A deployment alias, only when it serves the same model. |
 | `--host`, `--port` | `127.0.0.1`, `8001` | WebSocket bind address. |
@@ -91,14 +96,14 @@ network, and use an SSH tunnel if the simulator runs on another machine.
 Docker alternative:
 
 ```bash
-docker build -t batbatbat-molmospaces .
-docker run --rm -e BATBATBAT_LLM_BASE_URL -e BATBATBAT_LLM_API_KEY -p 127.0.0.1:8001:8001 batbatbat-molmospaces
+docker build -t silos-0-molmospaces .
+docker run --rm -e SILOS0_LLM_BASE_URL -e SILOS0_LLM_API_KEY -p 127.0.0.1:8001:8001 silos-0-molmospaces
 ```
 
 Check the server with a synthetic request (blank images, one real LLM call, no simulator):
 
 ```bash
-batbatbat-probe --url ws://127.0.0.1:8001
+silos-0-probe --url ws://127.0.0.1:8001
 ```
 
 ## 2. Install MolmoSpaces
@@ -156,7 +161,7 @@ Every planner call is billed by your endpoint.
 **at-end** (success on the last step), printed in brackets. The client stops an episode at its first success, so
 the two rarely differ. `score.py` writes that script's per-category CSV for each benchmark to `$RUN_OUT/scores/`,
 and adds only the per-benchmark counts, the missing episodes and the All Combined average. `--policy-name` sets the
-name in the CSVs (default `sol200-flagshipv3b`); the name is not part of the policy, so a finished run can be
+name in the CSVs (default `silos-0`); the name is not part of the policy, so a finished run can be
 rescored under another name in seconds.
 
 It also records what produced the run, at the top of `$RUN_OUT`:
@@ -245,12 +250,12 @@ The equivalent with MolmoSpaces' own command, for one benchmark:
 
 ```bash
 cd "$MOLMOSPACES_SRC"
-export PYTHONPATH="/path/to/batbatbat/molmospaces/src:/path/to/batbatbat/molmospaces"
+export PYTHONPATH="/path/to/silos-0/molmospaces/src:/path/to/silos-0/molmospaces"
 HARNESS_CAMS=exo_camera_1,wrist_camera,wrist_camera \
   python molmo_spaces/evaluation/eval_main.py client.policy:HarnessEvalConfig \
   --benchmark_dir "$MLSPACES_ASSETS_DIR/benchmarks/<benchmark folder>" --output_dir <run dir>
-python scripts/benchmarks/eval_to_csv.py <run dir>/<date folder> sol200-flagshipv3b --success-condition both \
-  --output-csv <task>/sol200-flagshipv3b.csv
+python scripts/benchmarks/eval_to_csv.py <run dir>/<date folder> silos-0 --success-condition both \
+  --output-csv <task>/silos-0.csv
 ```
 
 Add the other arguments from MolmoSpaces' command for that benchmark. The client chooses its cameras from
@@ -288,7 +293,7 @@ server's `decisions.jsonl`, and be ready to share a link to them.
 **Questionnaire draft** (the template's fields):
 
 ```text
-policy name: sol200-flagshipv3b
+policy name: silos-0
 authors/institution name: <authors> / <institution>
 MolmoBot or other in-domain data used: No (no training; the policy is an API LLM with a fixed prompt and tools)
 multi-task: Yes (one unchanged configuration for every benchmark)
@@ -316,7 +321,7 @@ context length (if applicable): whole episode in one conversation, up to 200 pla
   between left and right. Benchmarks with one outside camera use the wrist camera as the second view, and the
   request tells the model so. Pick-v2-rand-cam uses only the randomized room camera and the wrist camera, as Ai2's
   own command for it does.
-- **Robot.** `batbatbat-serve` sets the MolmoSpaces robot: fingertips 0.141 m from the gripper mount (MuJoCo
+- **Robot.** `silos-0-serve` sets the MolmoSpaces robot: fingertips 0.141 m from the gripper mount (MuJoCo
   2F-85) and the FR3's joint limits intersected with the Panda model's. The planner prompt is the same as on
   RoboLab; these values only change motion.
 - **Actions.** The server returns 8 steps of 7 joint targets plus a binary gripper. The client maps the gripper to

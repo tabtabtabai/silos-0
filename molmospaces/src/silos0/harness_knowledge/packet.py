@@ -273,12 +273,12 @@ def lint() -> list[str]:
 
 
 def harness_tools(mode: str) -> list[str]:
-    from batbatbat.harness.planner import tools
+    from silos0.harness.planner import tools
     return [t["name"] for t in tools()]  # one tool set; mode is kept for the card filters
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(prog="python -m batbatbat.harness_knowledge")
+    ap = argparse.ArgumentParser(prog="python -m silos0.harness_knowledge")
     sub = ap.add_subparsers(dest="cmd", required=True)
     b = sub.add_parser("build", help="print the packet for one harness configuration")
     b.add_argument("--harness", default="harness")

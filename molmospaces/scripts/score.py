@@ -47,7 +47,7 @@ DEFAULT_BENCHMARK = Path(__file__).resolve().parents[1] / "benchmark/molmospaces
 ALL_COMBINED = ["open-v1", "close-v1", "pick-v1.5", "pick-v2-classic", "pick-v2-filament", "pick-v2-rand-cam",
                 "pnp-v2", "pnp-next-to-v2", "pnp-color-v2"]
 SCORED_BY = {"pick-v2-filament": "pick-v2-classic"}
-POLICY = "sol200-flagshipv3b"
+POLICY = "silos-0"
 
 
 def load_scorer(molmospaces: Path):

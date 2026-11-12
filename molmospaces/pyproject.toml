@@ -3,9 +3,9 @@ requires = ["hatchling>=1.26"]
 build-backend = "hatchling.build"
 
 [project]
-name = "batbatbat-molmospaces"
+name = "silos-0-molmospaces"
 version = "0.1.0"
-description = "Policy server and MolmoSpaces client for the sol200-flagshipv3b LLM tool-harness policy"
+description = "Policy server and MolmoSpaces client for the silos-0 LLM tool-harness policy"
 requires-python = ">=3.12"
 license = "Apache-2.0"
 dependencies = ["numpy==2.5.1", "pillow==12.3.0", "pyyaml==6.0.3", "requests==2.34.2", "msgpack==1.2.1", "websockets==16.1.1",
@@ -15,11 +15,11 @@ dependencies = ["numpy==2.5.1", "pillow==12.3.0", "pyyaml==6.0.3", "requests==2.
 test = ["pytest>=8,<10"]
 
 [project.scripts]
-batbatbat-serve = "batbatbat.submission:main"
-batbatbat-probe = "batbatbat.probe:main"
+silos-0-serve = "silos0.submission:main"
+silos-0-probe = "silos0.probe:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/batbatbat"]
+packages = ["src/silos0"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

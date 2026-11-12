@@ -55,9 +55,9 @@ class LLMPlanner:
         lp, system, tools = self._lp, self.system_prompt(), self._tool_specs
         if self.provider != "openai-responses":
             raise ValueError("This submission requires the Responses API")
-        key = os.environ.get("BATBATBAT_LLM_API_KEY", "")
+        key = os.environ.get("SILOS0_LLM_API_KEY", "")
         if not key and self._injected is None:
-            raise ValueError(f"BATBATBAT_LLM_API_KEY is required for provider {self.provider!r}")
+            raise ValueError(f"SILOS0_LLM_API_KEY is required for provider {self.provider!r}")
         base = self.cfg.get("base_url") or lp.PROVIDER_BASE_URLS.get(self.provider) or ""
         if not base:
             raise ValueError(f"planner.base_url is required for provider {self.provider!r}")

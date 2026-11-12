@@ -47,9 +47,9 @@ class Locator:
         if cfg.get("provider", "gemini") not in ("gemini", "openai-compat"):
             raise ValueError("locator provider must be gemini or openai-compat (an OpenAI-compatible chat endpoint)")
         self.cfg, self.record = cfg, record
-        self.key = os.environ.get(cfg.get("key_env", "BATBATBAT_LOCATOR_API_KEY"), "")
+        self.key = os.environ.get(cfg.get("key_env", "SILOS0_LOCATOR_API_KEY"), "")
         if not self.key and post is None:
-            raise ValueError(f"locator key environment variable {cfg.get('key_env', 'BATBATBAT_LOCATOR_API_KEY')} is unset")
+            raise ValueError(f"locator key environment variable {cfg.get('key_env', 'SILOS0_LOCATOR_API_KEY')} is unset")
         self.post = post or self._post
 
     def provenance(self):

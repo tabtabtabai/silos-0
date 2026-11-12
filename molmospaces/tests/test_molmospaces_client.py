@@ -13,9 +13,9 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:  # client/ lives next to src/, outside the installed package
     sys.path.insert(0, str(ROOT))
 
-from batbatbat.harness.geometry import CAMERA_KEYS, calibration, locate  # noqa: E402
-from batbatbat.harness.kinematics import Franka  # noqa: E402
-from batbatbat.submission import MOLMOSPACES_ROBOT  # noqa: E402
+from silos0.harness.geometry import CAMERA_KEYS, calibration, locate  # noqa: E402
+from silos0.harness.kinematics import Franka  # noqa: E402
+from silos0.submission import MOLMOSPACES_ROBOT  # noqa: E402
 from client.request import GRIP_FULL, HORIZON, build_request, camera_to_root, to_action  # noqa: E402
 
 BENCHMARK = ROOT / "benchmark/molmospaces-hundred.json"
@@ -74,13 +74,13 @@ def test_request_carries_state_calibration_and_no_privileged_fields():
     req = request(obs, T)
     assert req["observation/joint_position"].shape == (7,)
     assert req["observation/gripper_position"][0] == pytest.approx(0.5, abs=1e-6)
-    assert req["batbatbat/step"] == 16 and req["batbatbat/slot"] == 7 and req["batbatbat/motion_time_limit_s"] == 20
-    assert set(req["batbatbat/calibration"]) == {"left", "right"}
-    assert req["batbatbat/camera_notes"]["right"].startswith("this is the WRIST camera")
+    assert req["silos0/step"] == 16 and req["silos0/slot"] == 7 and req["silos0/motion_time_limit_s"] == 20
+    assert set(req["silos0/calibration"]) == {"left", "right"}
+    assert req["silos0/camera_notes"]["right"].startswith("this is the WRIST camera")
     assert req["observation/image"].shape == (H + H // 2, W, 3)
     assert not any("privileged" in str(v) for v in req.values() if isinstance(v, str))
     distinct = request(obs, T, cams=("exo_camera_1", "wrist_camera", "exo_camera_1"))
-    assert distinct["batbatbat/camera_notes"] == {}
+    assert distinct["silos0/camera_notes"] == {}
 
 
 def test_camera_to_root_is_the_camera_pose_in_the_arm_frame():
@@ -108,7 +108,7 @@ def test_server_triangulates_with_calibration_from_the_request():
 def test_without_request_calibration_the_default_calibration_needs_its_native_size():
     obs, T = ms_obs()
     req = request(obs, T)
-    del req["batbatbat/calibration"]
+    del req["silos0/calibration"]
     with pytest.raises(ValueError, match="1280x720"):
         calibration(req, "left")
     assert CAMERA_KEYS["left"] in req
@@ -123,8 +123,8 @@ def test_action_row_maps_to_molmospaces_gripper_scale():
 
 def test_joint_limits_keep_only_the_overlap(monkeypatch):
     base = Franka().limits.copy()
-    fr3 = json.loads(MOLMOSPACES_ROBOT["BATBATBAT_JOINT_LIMITS_JSON"])
-    monkeypatch.setenv("BATBATBAT_JOINT_LIMITS_JSON", json.dumps(fr3))
+    fr3 = json.loads(MOLMOSPACES_ROBOT["SILOS0_JOINT_LIMITS_JSON"])
+    monkeypatch.setenv("SILOS0_JOINT_LIMITS_JSON", json.dumps(fr3))
     limits = Franka().limits
     assert np.allclose(limits[:, 0], np.maximum(base[:, 0], np.asarray(fr3)[:, 0]))
     assert np.allclose(limits[:, 1], np.minimum(base[:, 1], np.asarray(fr3)[:, 1]))
@@ -132,8 +132,8 @@ def test_joint_limits_keep_only_the_overlap(monkeypatch):
 
 
 def test_fingertip_offset_follows_the_environment():
-    code = "import batbatbat.harness.policy as p; print(p.FINGERTIP_OFFSET_M)"
-    env = {**os.environ, "BATBATBAT_FINGERTIP_OFFSET_M": MOLMOSPACES_ROBOT["BATBATBAT_FINGERTIP_OFFSET_M"]}
+    code = "import silos0.harness.policy as p; print(p.FINGERTIP_OFFSET_M)"
+    env = {**os.environ, "SILOS0_FINGERTIP_OFFSET_M": MOLMOSPACES_ROBOT["SILOS0_FINGERTIP_OFFSET_M"]}
     out = subprocess.run([sys.executable, "-c", code], env=env, capture_output=True, text=True, check=True)
     assert float(out.stdout) == pytest.approx(0.141)
 

@@ -33,7 +33,7 @@ def rotation(wxyz):
 
 def calibration(obs, side, overrides=None):
     # A simulator other than pinned RoboLab may send its own calibration per request.
-    c = (overrides or obs.get("batbatbat/calibration") or {}).get(side)
+    c = (overrides or obs.get("silos0/calibration") or {}).get(side)
     if c is None:
         # The existing RoboLab request has no calibration fields. These are the
         # fixed default exterior mounts and intrinsics from pinned RoboLab's
