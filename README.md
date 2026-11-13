@@ -11,12 +11,18 @@ self-contained directory with the policy server, the simulator client and run in
 
 ## Results
 
-The same planner prompt, tools and configuration produced both scores.
+The same planner prompt and tools produced both scores.
 
 | Benchmark | Episodes | Score |
 |---|---|---|
 | MolmoSpaces, all nine benchmarks | 7,915 | **85.6 All Combined** (mean of the nine oracle success rates) |
-| RoboLab, 120 tasks × 10 episodes (benchmark version 1.1) | 1,200 | **89.2% success**, 90.4% mean progress |
+| RoboLab, 120 tasks × 10 episodes (benchmark version 1.1) | 1,200 | **89.2% success** (1,070/1,200), 90.4% mean progress |
+
+RoboLab recordings, videos and logs for every episode are at
+[vasinwr/robolab-sol200-flagshipv3b-120x10](https://huggingface.co/datasets/vasinwr/robolab-sol200-flagshipv3b-120x10)
+(RoboLab revision `ad45d4f`, official environments 0–9, native task scoring). That run applies a runtime gripper
+configuration override (driven-joint armature, effort limit and pad contact stiffness and damping), described on
+the dataset card; take it into account when comparing with other RoboLab results.
 
 MolmoSpaces by benchmark, from the entry at
 [allenai/molmospaces#243](https://github.com/allenai/molmospaces/issues/243); trajectories, camera videos and logs
