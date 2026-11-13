@@ -4,6 +4,10 @@ Code to run the **silos-0** policy (an API-hosted LLM planner driving analytical
 tools, with no VLA or model checkpoint) on public robot-manipulation benchmarks. Each benchmark has its own
 self-contained directory with the policy server, the simulator client and run instructions.
 
+The name: *silos* is from the Greek ψιλός (*psilos*), "bare". The policy is a bare, off-the-shelf LLM with nothing
+trained on top of it. The *0* is for zero-shot: it has not been fine-tuned at all, on these benchmarks or on any
+robot data.
+
 | Directory | Benchmark | Status |
 |---|---|---|
 | [`molmospaces/`](molmospaces/) | [MolmoSpaces](https://github.com/allenai/molmospaces) (Ai2, MuJoCo, DROID Franka) | code and run instructions here |
