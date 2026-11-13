@@ -20,9 +20,7 @@ The same planner prompt and tools produced both scores.
 
 RoboLab recordings, videos and logs for every episode are at
 [vasinwr/robolab-sol200-flagshipv3b-120x10](https://huggingface.co/datasets/vasinwr/robolab-sol200-flagshipv3b-120x10)
-(RoboLab revision `ad45d4f`, official environments 0–9, native task scoring). That run applies a runtime gripper
-configuration override (driven-joint armature, effort limit and pad contact stiffness and damping), described on
-the dataset card; take it into account when comparing with other RoboLab results.
+(RoboLab revision `ad45d4f`, official environments 0–9, native task scoring).
 
 MolmoSpaces by benchmark, from the entry at
 [allenai/molmospaces#243](https://github.com/allenai/molmospaces/issues/243); trajectories, camera videos and logs
